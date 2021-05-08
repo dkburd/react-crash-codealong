@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
+import Header from './components/layout/Header'
 import './App.css';
 import Todos from './components/Todos'
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <h1>App</h1>
-//     </div>
-//   );
-// }
+import AddTodo from './components/AddTodo'
 
 class App extends Component{
 state={
@@ -20,12 +14,12 @@ state={
     },
     {
       id:2,
-      title: 'Dinner with Aaron',
+      title: 'Feed cat',
       completed:false
     },
     {
       id:3,
-      title: 'Meeting with boss',
+      title: 'Homework',
       completed:false
     }
 
@@ -52,15 +46,31 @@ this.setState({todos:[...this.state.todos.filter(todo => todo.id !== id)]})
 
 }
 
+//add todo
+addTodo = (title) => {
+  // console.log(title)
+  const newTodo = {
+    id: 4,
+    title:title,
+    completed:false
+  }
+this.setState({todos:[...this.state.todos, newTodo]})
+
+}
+
 
   render(){
     console.log(this.state.todos)
   return (
     <div className="App">
-      {/* passing the todos fom state into todos as a prop */}
-      <Todos todos={this.state.todos} markComplete={this.markComplete}
-      deleteTodo={this.deleteTodo}
-      />
+      <div className='container'>
+        <Header/>
+        <AddTodo addTodo={this.addTodo}/>
+        {/* passing the todos fom state into todos as a prop */}
+        <Todos todos={this.state.todos} markComplete={this.markComplete}
+        deleteTodo={this.deleteTodo}
+        />
+      </div>
     </div>
   );
 }
